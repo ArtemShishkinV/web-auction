@@ -3,6 +3,7 @@ package com.auction.webauction.store.service;
 import com.auction.webauction.store.entity.ProductEntity;
 import com.auction.webauction.store.exception.ProductNotFoundException;
 import com.auction.webauction.store.mapper.CategoryToEntityMapper;
+import com.auction.webauction.store.mapper.ProductToDtoMapper;
 import com.auction.webauction.store.mapper.ProductToEntityMapper;
 import com.auction.webauction.store.model.Product;
 import com.auction.webauction.store.model.dto.ProductRequestDto;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
-
 @Service
 @AllArgsConstructor
 public class DefaultProductService implements ProductService {
@@ -21,6 +21,7 @@ public class DefaultProductService implements ProductService {
     private CategoryService categoryService;
     private ProductToEntityMapper productToEntityMapper;
     private CategoryToEntityMapper categoryToEntityMapper;
+    private ProductToDtoMapper productToDtoMapper;
 
     @Override
     public List<Product> findAll() {
@@ -36,11 +37,10 @@ public class DefaultProductService implements ProductService {
 
     @Override
     public void add(ProductRequestDto productRequestDto) {
-        ProductEntity productEntity = new ProductEntity();
-        productEntity.setTitle(productRequestDto.getTitle());
-        productEntity.setPrice(productRequestDto.getPrice());
-        productEntity.setCategory(categoryToEntityMapper.
-                categoryToCategoryEntity(categoryService.findById(productRequestDto.getCategoryId())));
+        ProductEntity productEntity = productToEntityMapper.productToProductEntity(
+                productToDtoMapper.productRequestDtoToProduct(productRequestDto));
+        productEntity.setCategory(categoryToEntityMapper.categoryToCategoryEntity(
+                categoryService.findById(productRequestDto.getCategoryId())));
         productRepo.save(productEntity);
     }
 }

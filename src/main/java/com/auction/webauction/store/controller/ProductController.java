@@ -1,7 +1,6 @@
 package com.auction.webauction.store.controller;
 
 import com.auction.webauction.store.exception.ProductNotFoundException;
-import com.auction.webauction.store.mapper.ProductToDtoMapper;
 import com.auction.webauction.store.model.Product;
 import com.auction.webauction.store.model.dto.ProductRequestDto;
 import com.auction.webauction.store.service.ProductService;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;

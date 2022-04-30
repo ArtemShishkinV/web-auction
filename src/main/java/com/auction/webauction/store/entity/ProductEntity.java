@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.math.BigDecimal;
 
 @Data
 @Entity
@@ -23,7 +22,7 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private BigDecimal price;
+    private Long price;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
